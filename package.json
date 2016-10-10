@@ -1,0 +1,64 @@
+{
+  "name": "cordova-plugin-zbtprinter",
+  "version": "1.1.9",
+  "description": "A Cordova/Phonegap driver for Zebra bluetooth printers",
+  "cordova": {
+    "id": "cordova-plugin-android-idfa",
+    "platforms": [
+      "android",
+      "browser"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michael79/zbtprinter.git"
+  },
+  "keywords": [
+    "cordova",
+    "zebra",
+    "printer",
+    "bluetooth",
+    "print",
+    "android",
+    "install",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/michael79/zbtprinter#readme",
+  "gitHead": "0ad123d0bae1383ae26da794efb7d758f70ecd86",
+  "bugs": {
+    "url": "https://github.com/michael79/zbtprinter/issues"
+  },
+  "_id": "cordova-plugin-zbtprinter@1.1.9",
+  "scripts": {},
+  "_shasum": "312f49c9f9d48dabb5f66f6970dd47e1f2b02273",
+  "_from": "cordova-plugin-zbtprinter@latest",
+  "_npmVersion": "3.5.3",
+  "_nodeVersion": "4.2.4",
+  "_npmUser": {
+    "name": "michael79bxl",
+    "email": "michael@barchy.be"
+  },
+  "maintainers": [
+    {
+      "name": "michael79bxl",
+      "email": "michael@barchy.be"
+    }
+  ],
+  "dist": {
+    "shasum": "312f49c9f9d48dabb5f66f6970dd47e1f2b02273",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-zbtprinter/-/cordova-plugin-zbtprinter-1.1.9.tgz"
+  },
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-zbtprinter-1.1.9.tgz_1469128893815_0.8687818595208228"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-zbtprinter/-/cordova-plugin-zbtprinter-1.1.9.tgz"
+}
