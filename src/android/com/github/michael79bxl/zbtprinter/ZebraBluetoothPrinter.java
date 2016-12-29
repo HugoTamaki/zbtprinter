@@ -1,4 +1,4 @@
-package com.github.hugotamaki.zbtprinter;
+package com.github.michael79bxl.zbtprinter;
 
 import java.io.IOException;
 import java.util.ArrayList;
