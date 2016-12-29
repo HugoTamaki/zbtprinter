@@ -1,6 +1,8 @@
-package com.github.michael79bxl.zbtprinter;
+package com.github.hugotamaki.zbtprinter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -8,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
-import com.zebra.android.discovery.*;
+import com.zebra.sdk.printer.discovery.*;
 import com.zebra.sdk.comm.*;
 import com.zebra.sdk.printer.*;
 
@@ -45,39 +47,43 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         }
         return false;
     }
-    
+
     public void findPrinter(final CallbackContext callbackContext) {
       try {
-          BluetoothDiscoverer.findPrinters(this.cordova.getActivity().getApplicationContext(), new DiscoveryHandler() {
+          NetworkDiscoverer.findPrinters(new DiscoveryHandlerLinkOsOnly(new DiscoveryHandler() {
+
+              List<DiscoveredPrinter> printers = new ArrayList<DiscoveredPrinter>();
 
               public void foundPrinter(DiscoveredPrinter printer) {
-                  if(printer instanceof DiscoveredPrinterBluetooth) {
-                     JSONObject printerObj = new JSONObject();
-                     try {
-                       printerObj.put("address", printer.address);
-                       printerObj.put("friendlyName", ((DiscoveredPrinterBluetooth) printer).friendlyName);
-                       callbackContext.success(printerObj);
-                     } catch (JSONException e) {
-                     }
-                  } else {              
-                    String macAddress = printer.address;
-                    //I found a printer! I can use the properties of a Discovered printer (address) to make a Bluetooth Connection
-                    callbackContext.success(macAddress);
-                  }
+                  // if(printer instanceof DiscoveredPrinterBluetooth) {
+                  //    JSONObject printerObj = new JSONObject();
+                  //    try {
+                  //      printerObj.put("address", printer.address);
+                  //      printerObj.put("friendlyName", ((DiscoveredPrinterBluetooth) printer).friendlyName);
+                  //      callbackContext.success(printerObj);
+                  //    } catch (JSONException e) {
+                  //    }
+                  // } else {
+                  //   String macAddress = printer.address;
+                  //   //I found a printer! I can use the properties of a Discovered printer (address) to make a Bluetooth Connection
+                  //   callbackContext.success(macAddress);
+                  // }
+                printers.add(printer);
               }
 
               public void discoveryFinished() {
                   //Discovery is done
+                callbackContext.success(printers.toString());
               }
 
               public void discoveryError(String message) {
                   //Error during discovery
                   callbackContext.error(message);
               }
-          });
+          }));
       } catch (Exception e) {
           e.printStackTrace();
-      }      
+      }
     }
 
     /*
@@ -109,8 +115,8 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                         thePrinterConn.close();
                         callbackContext.success("Done");
                     } else {
-						callbackContext.error("Printer is not ready");
-					}
+            callbackContext.error("Printer is not ready");
+          }
                 } catch (Exception e) {
                     // Handle communications error here.
                     callbackContext.error(e.getMessage());
@@ -124,7 +130,9 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         connection.open();
         // Creates a ZebraPrinter object to use Zebra specific functionality like getCurrentStatus()
         ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
-        PrinterStatus printerStatus = printer.getCurrentStatus();
+        ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+
+        PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
         if (printerStatus.isReadyToPrint) {
             isOK = true;
         } else if (printerStatus.isPaused) {
@@ -139,4 +147,3 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         return isOK;
     }
 }
-

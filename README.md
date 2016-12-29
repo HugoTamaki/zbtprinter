@@ -7,14 +7,14 @@ This is a fork of https://github.com/mmilidoni/zbtprinter with discovery
 You can find Zebra printer using:
 
 ```
-cordova.plugins.zbtprinter.find(function(result) { 
+cordova.plugins.zbtprinter.find(function(result) {
         if(typeof result == 'string') {
-          alert(mac); 
+          alert(mac);
         } else {
           alert(result.address + ', ' + result.friendlyName);
         }
-    }, function(fail) { 
-        alert(fail); 
+    }, function(fail) {
+        alert(fail);
     }
 );
 ```
@@ -23,10 +23,10 @@ You can send data in ZPL Zebra Programing Language:
 
 ```
 cordova.plugins.zbtprinter.print("AC:3F:A4:1D:7A:5C", "! U1 setvar "device.languages" "line_print"\r\nTEXT ***Print test***\r\nPRINT\r\n",
-    function(success) { 
-        alert("Print ok"); 
-    }, function(fail) { 
-        alert(fail); 
+    function(success) {
+        alert("Print ok");
+    }, function(fail) {
+        alert(fail);
     }
 );
 ```
@@ -35,7 +35,7 @@ cordova.plugins.zbtprinter.print("AC:3F:A4:1D:7A:5C", "! U1 setvar "device.langu
 ###Cordova
 
 ```
-cordova plugin add https://github.com/michael79bxl/zbtprinter.git
+cordova plugin add https://github.com/hugotamaki/zbtprinter.git
 ```
 
 ###Phonegap build
