@@ -146,4 +146,37 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         }
         return isOK;
     }
+
+    public final static String specialChars = "ÜüÁáÉéÍíÓóÚúÑñÅÆØåæøÇçÃãÕõÂâÊêÔôªºÀà²³";
+
+    public final static byte[] specialCharsCode = new byte[] { (byte) 0xDC, (byte) 0xFC, (byte) 0xC1, (byte) 0xE1, (byte) 0xC9, (byte) 0xE9,
+          (byte) 0xCD, (byte) 0xED, (byte) 0xD3, (byte) 0xF3, (byte) 0xDA, (byte) 0xFA, (byte) 0xD1, (byte) 0xF1, (byte) 0xC5, (byte) 0xC6, (byte) 0xD8,
+          (byte) 0xE5, (byte) 0xE6, (byte) 0xF8, (byte) 0xC7, (byte) 0xE7, (byte) 0xC3, (byte) 0xE3, (byte) 0xD5, (byte) 0xF5, (byte) 0xC2, (byte) 0xE2, (byte) 0xCA, (byte) 0xEA,
+          (byte) 0xD4, (byte) 0xF4, (byte) 0xAA, (byte) 0xBA, (byte) 0xC0, (byte) 0xE0, (byte) 0xB2, (byte) 0xB3 };
+
+    public static byte[] stringToBytes(String s) {
+      int i, l, i_especial;
+      byte b;
+      byte[] b_arr;
+      String s_sub;
+
+      if(s == null)
+          return null;
+      if((l = s.length()) < 1)
+        return new byte[0];
+
+      b_arr = new byte[l];
+      for(i = 0; i < l; i++)
+      {
+        s_sub= s.substring(i, i + 1);
+        i_especial= specialChars.indexOf(s_sub);
+        if(i_especial < 0)
+            b = (s_sub.getBytes())[0];
+        else
+            b = specialCharsCode[i_especial];
+        b_arr[i]= b;
+      }
+
+      return b_arr;
+    }
 }
